@@ -15,7 +15,7 @@
 
 ## 👾 About
 
-A fully responsive **cyberpunk-themed personal portfolio** built with pure HTML, CSS, and JavaScript. Designed to stand out with neon glows, animated elements, and a futuristic dark aesthetic.
+A fully responsive  personal portfolio built with pure HTML, CSS, and JavaScript. Designed to stand out with neon glows, animated elements, and a futuristic dark aesthetic.
 
 ---
 
