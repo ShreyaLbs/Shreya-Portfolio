@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shreya Ajith | CSE Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --neon-purple: #b400ff;
+    --neon-pink: #ff00c8;
+    --neon-cyan: #00f5ff;
+    --dark-bg: #050508;
+    --dark-card: #0d0d1a;
+    --text-primary: #e8e8ff;
+    --text-secondary: #9090c0;
+    --grid-color: rgba(180, 0, 255, 0.07);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark-bg);
+    color: var(--text-primary);
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--neon-purple);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    box-shadow: 0 0 12px var(--neon-purple), 0 0 24px var(--neon-purple);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--neon-purple);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out;
+    opacity: 0.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.08) 2px, rgba(0,0,0,0.08) 4px);
+    pointer-events: none; z-index: 1;
+    animation: scanMove 8s linear infinite;
+  }
+  @keyframes scanMove { 0%{background-position:0 0} 100%{background-position:0 200px} }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(5,5,8,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(180,0,255,0.2);
+  }
+  .nav-logo { font-family: 'Orbitron', monospace; font-size: 1.2rem; font-weight: 900; color: var(--neon-purple); text-shadow: 0 0 20px var(--neon-purple); letter-spacing: 3px; }
+  .nav-logo span { color: var(--neon-cyan); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--neon-cyan); }
+
+  section { position: relative; z-index: 2; }
+
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 60px 60px;
+    position: relative; overflow: hidden;
+  }
+  .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; animation: floatOrb 8s ease-in-out infinite; }
+  .orb-1 { width: 400px; height: 400px; background: rgba(180,0,255,0.18); top: -100px; right: -100px; }
+  .orb-2 { width: 300px; height: 300px; background: rgba(0,245,255,0.12); bottom: 50px; left: -80px; animation-delay: -4s; }
+  .orb-3 { width: 200px; height: 200px; background: rgba(255,0,200,0.1); top: 40%; left: 40%; animation-delay: -2s; }
+  @keyframes floatOrb { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.05)} }
+
+  .hero-content { max-width: 900px; position: relative; }
+  .hero-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--neon-cyan); letter-spacing: 4px; margin-bottom: 20px; animation: fadeInUp 0.8s ease forwards; display: flex; align-items: center; gap: 12px; }
+  .hero-tag::before { content: ''; width: 40px; height: 1px; background: var(--neon-cyan); box-shadow: 0 0 8px var(--neon-cyan); }
+  .hero-name { font-family: 'Orbitron', monospace; font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 0.95; margin-bottom: 24px; animation: fadeInUp 0.8s 0.15s ease both; }
+  .hero-name .first { color: var(--text-primary); display: block; text-shadow: 0 0 40px rgba(255,255,255,0.1); }
+  .hero-name .last { display: block; background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink), var(--neon-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px var(--neon-purple)); }
+  .hero-role { font-family: 'Share Tech Mono', monospace; font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 32px; animation: fadeInUp 0.8s 0.3s ease both; }
+  .hero-role .highlight { color: var(--neon-purple); }
+  .typing-container { font-family: 'Share Tech Mono', monospace; font-size: 1rem; color: var(--neon-cyan); margin-bottom: 48px; animation: fadeInUp 0.8s 0.45s ease both; min-height: 28px; }
+  .typing-cursor { animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; animation: fadeInUp 0.8s 0.6s ease both; }
+  .btn { font-family: 'Orbitron', monospace; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; padding: 14px 32px; border: none; text-decoration: none; cursor: pointer; position: relative; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary { background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink)); color: #fff; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); box-shadow: 0 0 30px rgba(180,0,255,0.4); }
+  .btn-primary:hover { box-shadow: 0 0 50px rgba(180,0,255,0.7); transform: translateY(-2px); }
+  .btn-outline { background: transparent; color: var(--neon-cyan); border: 1px solid var(--neon-cyan); clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); box-shadow: inset 0 0 20px rgba(0,245,255,0.05), 0 0 20px rgba(0,245,255,0.1); }
+  .btn-outline:hover { background: rgba(0,245,255,0.1); box-shadow: 0 0 30px rgba(0,245,255,0.3); transform: translateY(-2px); }
+
+  .hero-stats { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 24px; animation: fadeInRight 1s 0.8s ease both; }
+  .stat-item { text-align: right; padding: 16px 24px; border-right: 2px solid var(--neon-purple); }
+  .stat-item::after { content: ''; position: absolute; right: -2px; top: 0; width: 2px; height: 100%; background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
+  .stat-num { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 900; color: var(--neon-purple); text-shadow: 0 0 20px var(--neon-purple); }
+  .stat-label { font-size: 0.75rem; color: var(--text-secondary); letter-spacing: 2px; text-transform: uppercase; }
+
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeInRight { from{opacity:0;transform:translate(30px,-50%)} to{opacity:1;transform:translate(0,-50%)} }
+
+  .section-header { text-align: center; margin-bottom: 70px; }
+  .section-tag { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--neon-cyan); letter-spacing: 5px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+  .section-title { font-family: 'Orbitron', monospace; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 900; background: linear-gradient(135deg, #fff 30%, var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .section-line { width: 80px; height: 2px; margin: 16px auto 0; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); box-shadow: 0 0 10px var(--neon-purple); }
+
+  #about { padding: 120px 60px; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto; align-items: center; }
+  .about-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+  .avatar-ring { width: 280px; height: 280px; border-radius: 50%; border: 2px solid transparent; background: linear-gradient(var(--dark-card), var(--dark-card)) padding-box, linear-gradient(135deg, var(--neon-purple), var(--neon-cyan)) border-box; display: flex; align-items: center; justify-content: center; position: relative; animation: glowPulse 4s ease-in-out infinite; }
+  @keyframes glowPulse { 0%,100%{box-shadow:0 0 40px rgba(180,0,255,0.3)} 50%{box-shadow:0 0 70px rgba(0,245,255,0.4)} }
+  .avatar-inner { width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(135deg, #1a0030, #000520); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', monospace; font-size: 5rem; font-weight: 900; color: var(--neon-purple); text-shadow: 0 0 30px var(--neon-purple); }
+  .floating-badge { position: absolute; background: var(--dark-card); border: 1px solid var(--neon-purple); padding: 10px 16px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-purple); letter-spacing: 2px; box-shadow: 0 0 20px rgba(180,0,255,0.2); }
+  .badge-1 { top: 0; right: -20px; animation: floatBadge 4s ease-in-out infinite; }
+  .badge-2 { bottom: 20px; left: -20px; animation: floatBadge 4s ease-in-out infinite 2s; }
+  @keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .about-text h3 { font-family: 'Orbitron', monospace; font-size: 1.4rem; color: var(--neon-cyan); margin-bottom: 20px; }
+  .about-text p { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); margin-bottom: 20px; }
+  .about-text p span { color: var(--neon-purple); font-weight: 600; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+  .info-item { padding: 12px 16px; background: rgba(180,0,255,0.05); border: 1px solid rgba(180,0,255,0.2); border-radius: 4px; }
+  .info-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--neon-cyan); letter-spacing: 2px; margin-bottom: 4px; }
+  .info-val { font-size: 0.9rem; color: var(--text-primary); }
+
+  #skills { padding: 120px 60px; background: linear-gradient(180deg, transparent, rgba(180,0,255,0.03), transparent); }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto; }
+  .skill-card { background: var(--dark-card); border: 1px solid rgba(180,0,255,0.15); padding: 28px; position: relative; overflow: hidden; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)); transition: border-color 0.3s, transform 0.3s; }
+  .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-purple), transparent); transform: scaleX(0); transition: transform 0.4s; }
+  .skill-card:hover { border-color: rgba(180,0,255,0.4); transform: translateY(-4px); }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-icon { font-size: 2rem; margin-bottom: 12px; }
+  .skill-name { font-family: 'Orbitron', monospace; font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; letter-spacing: 1px; }
+  .skill-bar-bg { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+  .skill-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink)); box-shadow: 0 0 10px var(--neon-purple); }
+  .skill-level { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--neon-cyan); margin-top: 8px; letter-spacing: 2px; }
+
+  #projects { padding: 120px 60px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .project-card { background: var(--dark-card); border: 1px solid rgba(180,0,255,0.15); overflow: hidden; position: relative; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); transition: all 0.4s; cursor: pointer; }
+  .project-card:hover { border-color: var(--neon-purple); transform: translateY(-6px); }
+  .project-card:hover .project-overlay { opacity: 1; }
+  .project-top { padding: 28px 28px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+  .project-num { font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 900; color: rgba(180,0,255,0.15); line-height: 1; }
+  .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag { font-family: 'Share Tech Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; padding: 4px 10px; border: 1px solid rgba(0,245,255,0.3); color: var(--neon-cyan); border-radius: 2px; }
+  .project-body { padding: 20px 28px 28px; }
+  .project-title { font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px; }
+  .project-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+  .project-link { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-purple); letter-spacing: 2px; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: gap 0.3s; }
+  .project-link:hover { gap: 16px; }
+  .project-line { height: 2px; margin: 0 28px; background: linear-gradient(90deg, var(--neon-purple), transparent); }
+  .project-overlay { position: absolute; inset: 0; background: rgba(180,0,255,0.05); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+
+  #education { padding: 120px 60px; background: linear-gradient(180deg, transparent, rgba(0,245,255,0.02), transparent); }
+  .timeline { max-width: 800px; margin: 0 auto; position: relative; }
+  .timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 1px; background: linear-gradient(180deg, var(--neon-purple), var(--neon-cyan), var(--neon-purple)); box-shadow: 0 0 10px var(--neon-purple); }
+  .timeline-item { padding-left: 80px; margin-bottom: 48px; position: relative; }
+  .timeline-dot { position: absolute; left: 14px; top: 8px; width: 20px; height: 20px; border-radius: 50%; background: var(--dark-bg); border: 2px solid var(--neon-purple); box-shadow: 0 0 15px var(--neon-purple); display: flex; align-items: center; justify-content: center; }
+  .timeline-dot::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--neon-purple); box-shadow: 0 0 6px var(--neon-purple); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.5)} }
+  .timeline-year { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-cyan); letter-spacing: 3px; margin-bottom: 8px; }
+  .timeline-card { background: var(--dark-card); border: 1px solid rgba(180,0,255,0.15); padding: 24px 28px; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%); transition: border-color 0.3s; }
+  .timeline-card:hover { border-color: rgba(180,0,255,0.4); }
+  .timeline-title { font-family: 'Orbitron', monospace; font-size: 1rem; color: var(--text-primary); margin-bottom: 6px; }
+  .timeline-sub { font-size: 0.9rem; color: var(--neon-purple); margin-bottom: 10px; }
+  .timeline-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+  .achievement-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .chip { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 1px; padding: 6px 12px; background: rgba(180,0,255,0.1); border: 1px solid rgba(180,0,255,0.3); color: var(--neon-purple); border-radius: 2px; }
+
+  #contact { padding: 120px 60px; }
+  .contact-wrapper { max-width: 700px; margin: 0 auto; }
+  .contact-card { background: var(--dark-card); border: 1px solid rgba(180,0,255,0.2); padding: 48px; clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px)); position: relative; overflow: hidden; }
+  .contact-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan), var(--neon-pink)); box-shadow: 0 0 20px var(--neon-purple); }
+  .contact-title { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 8px; }
+  .contact-sub { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 36px; line-height: 1.7; }
+  .form-group { margin-bottom: 24px; }
+  .form-label { display: block; font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--neon-cyan); letter-spacing: 3px; margin-bottom: 8px; }
+  .form-input { width: 100%; padding: 14px 18px; background: rgba(180,0,255,0.05); border: 1px solid rgba(180,0,255,0.2); color: var(--text-primary); font-family: 'Rajdhani', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s, box-shadow 0.3s; clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); }
+  .form-input:focus { border-color: var(--neon-purple); box-shadow: 0 0 20px rgba(180,0,255,0.2); }
+  textarea.form-input { resize: vertical; min-height: 120px; }
+  .contact-socials { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+  .social-btn { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; padding: 12px 20px; border: 1px solid rgba(180,0,255,0.3); color: var(--text-secondary); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+  .social-btn:hover { border-color: var(--neon-purple); color: var(--neon-purple); box-shadow: 0 0 20px rgba(180,0,255,0.2); }
+
+  footer { position: relative; z-index: 2; text-align: center; padding: 32px; border-top: 1px solid rgba(180,0,255,0.1); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 2px; }
+  footer span { color: var(--neon-purple); }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media(max-width:900px){
+    nav{padding:16px 24px}
+    .nav-links{display:none}
+    #hero{padding:100px 24px 60px;flex-direction:column}
+    .hero-stats{position:static;transform:none;flex-direction:row;margin-top:40px}
+    .stat-item{text-align:left;border-right:none;border-bottom:2px solid var(--neon-purple);padding:12px 16px}
+    #about,#skills,#projects,#education,#contact{padding:80px 24px}
+    .about-grid{grid-template-columns:1fr}
+    .hero-name{font-size:clamp(2.5rem,12vw,5rem)}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">SHR<span>EYA</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// INITIATING SEQUENCE</div>
+    <h1 class="hero-name">
+      <span class="first">SHREYA</span>
+      <span class="last">AJITH</span>
+    </h1>
+    <p class="hero-role">2nd Year <span class="highlight">Computer Science Engineer</span> &nbsp;|&nbsp; Builder &nbsp;|&nbsp; Problem Solver</p>
+    <div class="typing-container" id="typingText"><span class="typing-cursor">_</span></div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">⚡ View Projects</a>
+      <a href="#contact" class="btn btn-outline">◈ Contact Me</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Languages</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2nd</div>
+      <div class="stat-label">Year CSE</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Potential</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-tag">// 01. ABOUT_ME.exe</span>
+    <h2 class="section-title">WHO AM I?</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid reveal">
+    <div class="about-visual">
+      <div class="avatar-ring"><div class="avatar-inner">S</div></div>
+      <div class="floating-badge badge-1">CSE_2ND_YR</div>
+      <div class="floating-badge badge-2">FULL_STACK_LEARNER</div>
+    </div>
+    <div class="about-text">
+      <h3>Hello, World! 👾</h3>
+      <p>I'm <span>Shreya Ajith</span>, a passionate 2nd year Computer Science student with a love for turning ideas into design. I'm constantly exploring the digital frontier — one line of code at a time.</p>
+      <p>From crafting beautiful web interfaces with <span>HTML & CSS</span> to solving algorithmic problems with <span>Python, C & Java</span>, I thrive on the challenge of building things that actually work and look stunning.</p>
+      <p>I believe the best engineers are also creative thinkers — and I'm here to prove exactly that.</p>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">STATUS</div><div class="info-val">Actively Learning</div></div>
+        <div class="info-item"><div class="info-label">BRANCH</div><div class="info-val">Computer Science</div></div>
+        <div class="info-item"><div class="info-label">YEAR</div><div class="info-val">2nd Year (B.Tech)</div></div>
+        <div class="info-item"><div class="info-label">INTEREST</div><div class="info-val">Web Dev & UI/UX</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-tag">// 02. SKILLS.json</span>
+    <h2 class="section-title">MY ARSENAL</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><div class="skill-icon">🐍</div><div class="skill-name">PYTHON</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:65%"></div></div><div class="skill-level">INTERMEDIATE | 65%</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">⚙️</div><div class="skill-name">C LANGUAGE</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:70%"></div></div><div class="skill-level">INTERMEDIATE | 70%</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">☕</div><div class="skill-name">JAVA</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:60%"></div></div><div class="skill-level">LEARNING | 60%</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🌐</div><div class="skill-name">HTML</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:80%"></div></div><div class="skill-level">PROFICIENT | 80%</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">🎨</div><div class="skill-name">CSS</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:75%"></div></div><div class="skill-level">PROFICIENT | 75%</div></div>
+    <div class="skill-card reveal"><div class="skill-icon">⚡</div><div class="skill-name">JAVASCRIPT</div><div class="skill-bar-bg"><div class="skill-bar-fill" style="width:55%"></div></div><div class="skill-level">LEARNING | 55%</div></div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-tag">// 03. PROJECTS.db</span>
+    <h2 class="section-title">WHAT I'VE BUILT</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-top"><div class="project-num">01</div><div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div></div>
+      <div class="project-line"></div>
+      <div class="project-body"><div class="project-title">SafeSpace</div><div class="project-desc">SafeSpace is a two-sided civic reporting platform that enables citizens to anonymously report local issues with photos and location data, connecting them directly to authorities for faster resolution.</div><a href="https://shreyalbs.github.io/SafeSpace/" target="_blank" class="project-link">VIEW PROJECT →</a></div>
+      <div class="project-overlay"></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-top"><div class="project-num">02</div><div class="project-tags"><span class="tag">REACT</span><span class="tag">PYTHON FLASK</span></div></div>
+      <div class="project-line"></div>
+      <div class="project-body"><div class="project-title">ChainSync</div><div class="project-desc">A web-based Supply Chain Management System that enables businesses to manage suppliers, products, warehouses, inventory, customers, and orders through a seamless glassmorphism dashboard.</div><a href="https://chain-sync-nine.vercel.app/" target="_blank" class="project-link">VIEW PROJECT →</a></div>
+      <div class="project-overlay"></div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-top"><div class="project-num">03</div><div class="project-tags"><span class="tag">JAVA</span><span class="tag">JAVA SWING</span></div></div>
+      <div class="project-line"></div>
+      <div class="project-body"><div class="project-title">Don't let your Kitty Escape</div><div class="project-desc">A unique java game heavily build on Java Swing and Java to enable features like sound and motion.</div><a href="#" class="project-link">VIEW PROJECT →</a></div>
+      <div class="project-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-tag">// 04. EDUCATION.log</span>
+    <h2 class="section-title">MY JOURNEY</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024 — PRESENT</div>
+      <div class="timeline-card">
+        <div class="timeline-title">B.Tech in Computer Science Engineering</div>
+        <div class="timeline-sub">Studying at LBS Institute of Technology for Women,Poojapura</div>
+        <div class="timeline-desc">Currently pursuing my undergraduate degree with focus on programming fundamentals, data structures, algorithms, and web development.</div>
+        <div class="achievement-chips"><span class="chip">DSA</span><span class="chip">OOP</span><span class="chip">Web Dev</span><span class="chip">DBMS</span></div>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2022 — 2024</div>
+      <div class="timeline-card">
+        <div class="timeline-title">Higher Secondary Education (12th)</div>
+        <div class="timeline-sub">Studied at Navy Children School,Kochi </div>
+        <div class="timeline-desc">Completed 12th grade with focus on Physics, Chemistry, and Mathematics. Developed strong analytical and problem-solving foundation.</div>
+        <div class="achievement-chips"><span class="chip">PCM</span><span class="chip">86.2</span></div>
+      </div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">ACHIEVEMENTS</div>
+      <div class="timeline-card">
+        <div class="timeline-title">Certifications & Achievements</div>
+        <div class="timeline-sub"></div>
+        <div class="timeline-desc">Continuously upskilling through online courses, hackathons, and college activities. Always hungry to learn and grow.</div>
+        <div class="achievement-chips"><span class="chip">NPTEL Programming in Java</span><span class="chip">Top Maker in TinkerHack 4.0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-tag">// 05. CONTACT.init</span>
+    <h2 class="section-title">MESSAGE ME</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-wrapper reveal">
+    <div class="contact-card">
+      <h3 class="contact-title">Let's Connect ⚡</h3>
+      <p class="contact-sub">Have a project idea, collaboration proposal, or just want to say hi? My inbox is always open. Drop a message and I'll get back to you!</p>
+      <div class="form-group">
+        <label class="form-label">// YOUR_NAME</label>
+        <input type="text" class="form-input" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">// YOUR_EMAIL</label>
+        <input type="email" class="form-input" placeholder="Enter your email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">// MESSAGE</label>
+        <textarea class="form-input" placeholder="Type your message here..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;">⚡ SEND MESSAGE</button>
+      <div class="contact-socials">
+        <a href="https://github.com/ShreyaLbs" target="_blank" class="social-btn">⟨/⟩ GITHUB</a>
+        <a href="https://www.linkedin.com/in/shreya-ajith-a1710a339/" target="_blank" class="social-btn">◈ LINKEDIN</a>
+        <a href="mailto:shreyaajith480@gmail.com" class="social-btn">✉ EMAIL</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & Built with 💜 by <span>SHREYA AJITH</span> &nbsp;|&nbsp; © 2026 &nbsp;|&nbsp; All rights reserved</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top = e.clientY + 'px';
+    }, 80);
+  });
+  document.querySelectorAll('a, button, .skill-card, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; cursorRing.style.transform = 'translate(-50%,-50%) scale(1.5)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; cursorRing.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  });
+
+  // Typing effect
+  const phrases = ['Passionate about Web Development','Python & Java Enthusiast','Building the Future, One Line at a Time','CSE Student | Creative Coder'];
+  let pIdx = 0, cIdx = 0, deleting = false;
+  const typEl = document.getElementById('typingText');
+  function type() {
+    const curr = phrases[pIdx];
+    if (!deleting) {
+      typEl.innerHTML = curr.slice(0, cIdx+1) + '<span class="typing-cursor">_</span>';
+      cIdx++;
+      if (cIdx === curr.length) { deleting = true; setTimeout(type, 2000); return; }
+    } else {
+      typEl.innerHTML = curr.slice(0, cIdx-1) + '<span class="typing-cursor">_</span>';
+      cIdx--;
+      if (cIdx === 0) { deleting = false; pIdx = (pIdx+1) % phrases.length; }
+    }
+    setTimeout(type, deleting ? 50 : 80);
+  }
+  type();
+
+  // Scroll reveal
+  function revealOnScroll() {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add('visible');
+      }
+    });
+  }
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+  setTimeout(revealOnScroll, 300);
+  setTimeout(revealOnScroll, 800);
+</script>
+</body>
+</html>
